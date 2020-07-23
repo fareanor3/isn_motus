@@ -203,7 +203,7 @@ def decompte(): # pour le timer chono
         Val["state"]=DISABLED
 
 def jouer_son():
-    if os.name=="nt": # Si c'est sur windows, par ce que windows = nt sur python, ne marche pas sur Lunux ou MAC os,ect.
+    if os.name=="nt": # Si c'est sur windows, (windows = nt sur python) => ne marche pas sur d'autre OS
         import winsound
         winsound.PlaySound("motus.wav", winsound.SND_FILENAME | winsound.SND_ASYNC) # joue le son pendant que le code s'execute, et donc sans le stop de 1 seconde. (dis asynchrone) - FILENAME = fichier - | = melange les deux infos en une variable unique
 
@@ -267,5 +267,4 @@ Lettre2=Entry(fen,bg='white',textvariable=Mot2,font=font.Font(family="Consolas",
 Lettre1=Entry(fen,bg='white',textvariable=Mot1,font=font.Font(family="Consolas",size=20))
 
 
-#note de patch : au lieu de avoire n lettre, faire un tableau et mettre les lettre dedans, idem pour mots avec des string vars. 
-#  demaner a maxime les bon dicos. 
+#note de patch : au lieu de avoire n lettre => faire un tableau et mettre les lettre dedans, idem pour mots avec des StringVar
