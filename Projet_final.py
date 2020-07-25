@@ -32,7 +32,7 @@ fen=Tk()
 fen.title('MOTUS')  # titre de la fenetre
 fen.iconbitmap("favicon.ico") # vignette motus 
 Can=Canvas(fen,width=900, height=200, bg='white')
-ImMotus = PhotoImage (file="Nm2.png")
+ImMotus = PhotoImage (file="Nm2.png") # rechercher pq il faut stoquer l'image dans une variable avant de las stoque dans item
 item=Can.create_image(450,100,image=ImMotus)
 Can.grid(row=0)
 
@@ -133,7 +133,7 @@ def entree_mot() :
     Mot6.set("")
     Mot7.set("")
     Mot8.set("")
-    Mot9.set("")  # faire une boucle for, range 9, ( ligne 118 a 126)
+    Mot9.set("")  # faire une boucle for, range 9, ( ligne 118 a 126 (reference de ligne a peut etre modifer))
     NmLi=NmLi-1
 
 
@@ -192,10 +192,10 @@ for m in range(11): # m est le numéro de la ligne qu'on créé
     labels_lettres.append(ligne_labels)
 
 def decompte(): # pour le timer chono
-    t=int(lbl["text"])
-    if t > 0:
+    time=int(lbl["text"])
+    if time > 0:
         lbl["text"]="%03d" %(t-1) # trois chiffres affichés en parmanance, sinon %02 pour 2 chiffres
-        fen.after(1000,decompte) 
+        fen.after(1000,decompte) # en mili-seconde d'où 1000 ms = 1s
 
     elif t == 0 :
         svStatut.set("Partie terminée.\nTu as dépassé le temps accordé, le mot était "+str(mot_a_trouver)+".\nTon score est donc de "+str(score)+" point(s).\n\nRecommence !\n\n\n\n\n\n↓")
@@ -207,9 +207,9 @@ def jouer_son():
         import winsound
         winsound.PlaySound("motus.wav", winsound.SND_FILENAME | winsound.SND_ASYNC) # joue le son pendant que le code s'execute, et donc sans le stop de 1 seconde. (dis asynchrone) - FILENAME = fichier - | = melange les deux infos en une variable unique
 
-def remplissage (event) :
+def remplissage (event) : # a quoi sert cette partie de code ? jamais appeler ? 
     if Mot1 != "" :
-        Lettre2.focus_get()
+        Lettre2.focus_get() # pq lettre2 ?
 
 Val=Button(fen, text='VALIDER', command=entree_mot, width=30, height=40,font=font.Font(family="Consolas",size=12)) #bouton valider
 Val.place(x=600,y=200, width=120, height=50)
@@ -267,4 +267,4 @@ Lettre2=Entry(fen,bg='white',textvariable=Mot2,font=font.Font(family="Consolas",
 Lettre1=Entry(fen,bg='white',textvariable=Mot1,font=font.Font(family="Consolas",size=20))
 
 
-#note de patch : au lieu de avoire n lettre, faire un tableau et mettre les lettre dedans, idem pour mots avec des string vars.
+### patch note : au lieu d'avoir n lettre, faire un tableau et mettre les lettre dedans, idem pour mots avec des string vars. ###
