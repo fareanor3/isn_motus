@@ -23,7 +23,6 @@ def clic_8():
 def clic_9():
     ouv_fen(False,9)
 
-
 fen1=Tk()
 
 def ouv_fen(Aléatoire,NbreL): # fait passer les informations entre deux programes

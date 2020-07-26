@@ -207,10 +207,6 @@ def jouer_son():
         import winsound
         winsound.PlaySound("motus.wav", winsound.SND_FILENAME | winsound.SND_ASYNC) # joue le son pendant que le code s'execute, et donc sans le stop de 1 seconde. (dis asynchrone) - FILENAME = fichier - | = melange les deux infos en une variable unique
 
-def remplissage (event) : # a quoi sert cette partie de code ? jamais appeler ? 
-    if Mot1 != "" :
-        Lettre2.focus_get() # pq lettre2 ?
-
 Val=Button(fen, text='VALIDER', command=entree_mot, width=30, height=40,font=font.Font(family="Consolas",size=12)) #bouton valider
 Val.place(x=600,y=200, width=120, height=50)
 Quit=Button(fen,text='QUITTER', command =fen.destroy, font=font.Font(family="Consolas",size=12),relief="raised")
