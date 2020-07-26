@@ -94,7 +94,7 @@ def commencer_partie():
         Lettre8.place(x=200+(lalargeur*7),y=200, width=lalargeur, height=50)
     
     if NbreL==9 :
-        Lettre9.place(x=200+(lalargeur*8),y=200, width=lalargeur, height=50)  # a refaire pour ergonomie. puique tableau a venir (71 a 87)
+        Lettre9.place(x=200+(lalargeur*8),y=200, width=lalargeur, height=50)  # a refaire pour ergonomie. puique tableau a venir (71 a 87 (vériff des lignes))
 
     commencer_mot ()
     decompte()
@@ -123,7 +123,7 @@ def Afficher_les_differences(proposition_joueur,mot_a_trouver):
 
 def entree_mot() :
     global flags, score,NmLi
-    le_mot = str(Lettre1.get()+Lettre2.get()+Lettre3.get()+Lettre4.get()+Lettre5.get()+Lettre6.get()+Lettre7.get()+Lettre8.get()+Lettre9.get())  # boucle for sur ttes les lettres.
+    le_mot = str(Lettre1.get()+Lettre2.get()+Lettre3.get()+Lettre4.get()+Lettre5.get()+Lettre6.get()+Lettre7.get()+Lettre8.get()+Lettre9.get())  # optimiser avec une boucle for sur ttes les lettres ?
     le_mot = le_mot.upper() #passe le mot en maj en affichage, meme si deja en maj 
     Mot1.set("")
     Mot2.set("")
@@ -133,7 +133,7 @@ def entree_mot() :
     Mot6.set("")
     Mot7.set("")
     Mot8.set("")
-    Mot9.set("")  # faire une boucle for, range 9, ( ligne 118 a 126 (reference de ligne a peut etre modifer))
+    Mot9.set("")  # faire une boucle for, range 9, ( ligne 118 a 126 (reference de ligne a peut etre modifer)) ( a quoi ca sert de set une varriable )
     NmLi=NmLi-1
 
 
@@ -144,7 +144,7 @@ def entree_mot() :
 
 
     if le_mot not in mots_possibles: # permet aussi de bloquer les chiffres dans les chaines de caractères.
-        svStatut.set("⚠ Le mot n'est pas dans le dictionnaire.\n\n""Merci de ressayer")
+        svStatut.set("⚠ Le mot n'est pas dans le dictionnaire.\n\n""Merci de réessayer")
         NmLi=NmLi+1
         return
 
@@ -153,17 +153,17 @@ def entree_mot() :
 
     if le_mot == mot_a_trouver:
         score=score+1
-        svStatut.set("Bien joué ton score est de "+str (score)+" point(s). Recommence directement !")
+        svStatut.set("Bien joué ton score est de "+str(score)+" point(s). Recommence directement !")
         commencer_mot()
 
-    elif len(mots) == nb_max_essais*2:
-        svStatut.set("Tu as échoué à ce mot. \n\n Tu as dépassé le nombre d'essais maximum.\n\n Le mot était "+str(mot_a_trouver)+". \n\n Ton score est toujours de "+str (score)+" point(s).\n\n\n\n\n\n\n")
+    elif len(mots) == nb_max_essais*2: # pq multiplié par 2 ?
+        svStatut.set("Tu as échoué à ce mot. \n\n Tu as dépassé le nombre d'essais maximum.\n\n Le mot était "+str(mot_a_trouver)+". \n\n Ton score est toujours de "+str(score)+" point(s).\n\n\n\n\n\n\n")
         commencer_mot()
 
-### affichage de tte les lettres + couleurs ###
+### affichage de ttes les lettres + couleurs ###
     for m in range(11):
         for l in range(NbreL):
-            var_lettres[m][l].set(mots[m][l])
+            var_lettres[m][l].set(mots[m][l]) # a quoi sert de mettre d'indice "m" et "l" ?
 
             couleur = "black" # couleur inicialisation
 
@@ -194,10 +194,10 @@ for m in range(11): # m est le numéro de la ligne qu'on créé
 def decompte(): # pour le timer chono
     time=int(lbl["text"])
     if time > 0:
-        lbl["text"]="%03d" %(t-1) # trois chiffres affichés en parmanance, sinon %02 pour 2 chiffres
+        lbl["text"]="%03d" %(time -1) # trois chiffres affichés en parmanance, sinon %02 pour 2 chiffres
         fen.after(1000,decompte) # en mili-seconde d'où 1000 ms = 1s
 
-    elif t == 0 :
+    elif time == 0 :
         svStatut.set("Partie terminée.\nTu as dépassé le temps accordé, le mot était "+str(mot_a_trouver)+".\nTon score est donc de "+str(score)+" point(s).\n\nRecommence !\n\n\n\n\n\n↓")
         boutondemarrer['state']=NORMAL
         Val["state"]=DISABLED
@@ -253,7 +253,7 @@ Mot7.set("")
 Mot8=StringVar()
 Mot8.set("")
 Mot9=StringVar()
-Mot9.set("")         # faire un tableau mots et lettes si possible
+Mot9.set("")         # optimiser en faisant un tableau de mots et de lettes si possible
 
 
 Lettre9=Entry(fen,bg='white',textvariable=Mot9,font=font.Font(family="Consolas",size=20))
@@ -267,4 +267,4 @@ Lettre2=Entry(fen,bg='white',textvariable=Mot2,font=font.Font(family="Consolas",
 Lettre1=Entry(fen,bg='white',textvariable=Mot1,font=font.Font(family="Consolas",size=20))
 
 
-### patch note : au lieu d'avoir n lettre, faire un tableau et mettre les lettre dedans, idem pour mots avec des string vars. ###
+### patch notes : au lieu d'avoir n lettre => faire un tableau et mettre les lettre dedans, idem pour mots avec des string vars. ###
