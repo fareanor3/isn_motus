@@ -7,7 +7,6 @@ import os
 
 
 
-
 Aléatoire = False
 mots_possibles = []
 mot_a_trouver = ""
@@ -28,6 +27,9 @@ position_y = 265
 var_lettres = []
 labels_lettres = []
 
+mots = []
+flags = []
+
 fen=Tk() 
 fen.title('MOTUS')  # titre de la fenetre
 fen.iconbitmap("favicon.ico") # vignette motus 
@@ -35,9 +37,6 @@ Can=Canvas(fen,width=900, height=200, bg='white')
 ImMotus = PhotoImage (file="Nm2.png") # rechercher pq il faut stoquer l'image dans une variable avant de las stoque dans item
 item=Can.create_image(450,100,image=ImMotus)
 Can.grid(row=0)
-
-mots = []
-flags = []
 
 def commencer_mot ():
     global mot_a_trouver,mots,flags,NmLi #pour que les nouvelles valeurs soient accessibles ailleurs
@@ -51,7 +50,6 @@ def commencer_mot ():
     svindice.set("INDICE : "+"_ "*(position_indice)+(lettre_indice)+" "+"_ "*(NbreL-position_indice-1)) #affichage indice
     
     mots = [" "*NbreL]*11
-
     flags = [["X"]*NbreL]*11
 
 def initialiser(aleatoire, nombre):
@@ -63,7 +61,6 @@ def initialiser(aleatoire, nombre):
     fen.after(250,jouer_son) # latence en ms avant de jouer le son de motus pour que la fenettre est eu le temps de s'afficher
     fen.mainloop()
 
-
 def commencer_partie():
     global score, NbreL, mots_possibles
     score=0
@@ -73,7 +70,7 @@ def commencer_partie():
     svStatut.set(txt_bnv)
     if Aléatoire :
         NbreL=random.randint(5,9)
-    fichier_mot=open('dictionnaire' + str(NbreL) +'.txt','r')
+    fichier_mot=open('dictionnaire'+str(NbreL)+'.txt','r')
     mots_possibles=fichier_mot.read().splitlines()
     fichier_mot.close()
     svNbreE.set(str(NmLi))
@@ -118,7 +115,6 @@ def Afficher_les_differences(proposition_joueur,mot_a_trouver):
                 if proposition_joueur[i] in lettres_restantes:
                     liste_tags[i]= 'M'
                     lettres_restantes.remove(proposition_joueur[i])
-                    #print (liste_tags) #si rien ne coresponds il n'affiche rien # Se traduit pas un X vide dans la liste tags 
     return liste_tags # return pour stocker
 
 def entree_mot() :
@@ -136,12 +132,10 @@ def entree_mot() :
     Mot9.set("")  # faire une boucle for, range 9, ( ligne 118 a 126 (reference de ligne a peut etre modifer)) ( a quoi ca sert de set une varriable )
     NmLi=NmLi-1
 
-
     if len(le_mot) != NbreL:
         svStatut.set("⚠ ATTENTION ! ⚠ \n\n Il faut que le mot fasse "+str(NbreL)+" lettres. \n\n\n\n\n\n\n\n\n\n\n")
         NmLi=NmLi+1
         return
-
 
     if le_mot not in mots_possibles: # permet aussi de bloquer les chiffres dans les chaines de caractères.
         svStatut.set("⚠ Le mot n'est pas dans le dictionnaire.\n\n""Merci de réessayer")
@@ -161,6 +155,7 @@ def entree_mot() :
         commencer_mot()
 
 ### affichage de ttes les lettres + couleurs ###
+
     for m in range(11):
         for l in range(NbreL):
             var_lettres[m][l].set(mots[m][l]) # a quoi sert de mettre d'indice "m" et "l" ?
@@ -209,10 +204,10 @@ def jouer_son():
 
 Val=Button(fen, text='VALIDER', command=entree_mot, width=30, height=40,font=font.Font(family="Consolas",size=12)) #bouton valider
 Val.place(x=600,y=200, width=120, height=50)
-Quit=Button(fen,text='QUITTER', command =fen.destroy, font=font.Font(family="Consolas",size=12),relief="raised")
+Quit=Button(fen,text='QUITTER', command=fen.destroy, font=font.Font(family="Consolas",size=12),relief="raised")
 Quit.place(x=720,y=548, width=180, height=52)
 Val["state"]=DISABLED
-lblNbreE=Label(fen,text= " Nombre d'essais restants : \n\n\n\n\n\n\n\n\n",font=font.Font(family="Consolas",size=8),relief="solid")
+lblNbreE=Label(fen,text= "Nombre d'essais restants :\n\n\n\n\n\n\n\n\n",font=font.Font(family="Consolas",size=8),relief="solid")
 lblNbreE.place(x=720,y=298, width=180, height=175)
 svNbreE = StringVar()
 NbreE=Label(fen,textvariable=svNbreE,font=font.Font(family="Consolas",size=50))
@@ -263,4 +258,4 @@ Lettre2=Entry(fen,bg='white',textvariable=Mot2,font=font.Font(family="Consolas",
 Lettre1=Entry(fen,bg='white',textvariable=Mot1,font=font.Font(family="Consolas",size=20))
 
 
-### patch notes : au lieu d'avoir n lettre => faire un tableau et mettre les lettre dedans, idem pour mots avec des string vars. ###
+### patch notes : au lieu d'avoir n lettre => faire un tableau et mettre les lettre dedans, idem pour mots avec des string vars ###
