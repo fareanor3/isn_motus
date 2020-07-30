@@ -65,7 +65,7 @@ def commencer_partie():
     global score, NbreL, mots_possibles
     score=0
     Val["state"]=NORMAL
-    boutondemarrer['state']=DISABLED  # pour empecher de reset le mot + timer
+    boutondemarrer['state']=DISABLED  # block le reset du mot + timer
     lbl["text"]= temps
     svStatut.set(txt_bnv)
     if Aléatoire :
