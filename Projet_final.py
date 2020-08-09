@@ -1,9 +1,7 @@
 from tkinter import *
 from tkinter import font
-from random import randrange
 import random
 import os
-
 
 
 
@@ -75,23 +73,9 @@ def commencer_partie():
     fichier_mot.close()
     svNbreE.set(str(NmLi))
     lalargeur=400/NbreL
-    Lettre1.place(x=200,y=200,width=lalargeur,height=50)
-    Lettre2.place(x=200+lalargeur,y=200, width=lalargeur,height=50)
-    Lettre3.place(x=200+(lalargeur*2),y=200,width=lalargeur,height=50)
-    Lettre4.place(x=200+(lalargeur*3),y=200,width=lalargeur,height=50)
-    Lettre5.place(x=200+(lalargeur*4),y=200,width=lalargeur,height=50)
 
-    if NbreL>=6 :
-        Lettre6.place(x=200+(lalargeur*5),y=200, width=lalargeur, height=50)
-    
-    if NbreL>=7 :
-        Lettre7.place(x=200+(lalargeur*6),y=200, width=lalargeur, height=50)
-    
-    if NbreL>=8 :
-        Lettre8.place(x=200+(lalargeur*7),y=200, width=lalargeur, height=50)
-    
-    if NbreL==9 :
-        Lettre9.place(x=200+(lalargeur*8),y=200, width=lalargeur, height=50)  # a refaire pour ergonomie. puique tableau a venir (71 a 87 (vériff des lignes))
+    for i in range(NbreL):
+        Lettres[i].place(x=200+lalargeur*i, y=200, width=lalargeur, height=50)
 
     commencer_mot ()
     decompte()
@@ -118,17 +102,12 @@ def Afficher_les_differences(proposition_joueur,mot_a_trouver):
 
 def entree_mot() :
     global flags, score,NmLi
-    le_mot = str(Lettre1.get()+Lettre2.get()+Lettre3.get()+Lettre4.get()+Lettre5.get()+Lettre6.get()+Lettre7.get()+Lettre8.get()+Lettre9.get())  # optimiser avec une boucle for sur ttes les lettres ?
+    le_mot = "" 
+    for i in range (9):
+        le_mot= le_mot+ Lettres[i].get()
+        Mots[i].set("")
     le_mot = le_mot.upper() #passe le mot en maj en affichage, meme si deja en maj 
-    Mot1.set("")
-    Mot2.set("")
-    Mot3.set("")
-    Mot4.set("")
-    Mot5.set("")
-    Mot6.set("")
-    Mot7.set("")
-    Mot8.set("")
-    Mot9.set("")  # faire une boucle for, range 9, ( ligne 118 a 126 (reference de ligne a peut etre modifer)) ( a quoi ca sert de set une varriable )
+
     NmLi=NmLi-1
 
     if len(le_mot) != NbreL:
@@ -225,33 +204,11 @@ svindice = StringVar()
 svindice.set("INDICE : ")
 Labelindice = Label(fen,textvariable=svindice, font=font.Font(family="Consolas",size=10),relief="solid")
 Labelindice.place(x=0,y=200, width=200, height=50)
-Mot1=StringVar()
-Mot1.set("")
-Mot2=StringVar()
-Mot2.set("")
-Mot3=StringVar()
-Mot3.set("")
-Mot4=StringVar()
-Mot4.set("")
-Mot5=StringVar()
-Mot5.set("")
-Mot6=StringVar()
-Mot6.set("")
-Mot7=StringVar()
-Mot7.set("")
-Mot8=StringVar()
-Mot8.set("")
-Mot9=StringVar()
-Mot9.set("")         # optimiser en faisant un tableau de mots et de lettes
-Lettre9 = Entry(fen,bg='white',textvariable=Mot9,font=font.Font(family="Consolas",size=20))
-Lettre8 = Entry(fen,bg='white',textvariable=Mot8,font=font.Font(family="Consolas",size=20))
-Lettre7 = Entry(fen,bg='white',textvariable=Mot7,font=font.Font(family="Consolas",size=20))
-Lettre6 = Entry(fen,bg='white',textvariable=Mot6,font=font.Font(family="Consolas",size=20))
-Lettre5 = Entry(fen,bg='white',textvariable=Mot5,font=font.Font(family="Consolas",size=20))
-Lettre4 = Entry(fen,bg='white',textvariable=Mot4,font=font.Font(family="Consolas",size=20))
-Lettre3 = Entry(fen,bg='white',textvariable=Mot3,font=font.Font(family="Consolas",size=20))
-Lettre2 = Entry(fen,bg='white',textvariable=Mot2,font=font.Font(family="Consolas",size=20))
-Lettre1 = Entry(fen,bg='white',textvariable=Mot1,font=font.Font(family="Consolas",size=20))
 
+Mots = []
+Lettres = []
 
-### patch notes : au lieu d'avoir n lettre => faire un tableau et mettre les lettre dedans, idem pour mots avec des string vars ###
+for i in range(9):
+    Mots.append(StringVar())
+    Mots[i].set("")
+    Lettres.append(Entry(fen,bg="white",textvariable=Mots[i],font=font.Font(family="Consolas",size=20)))
