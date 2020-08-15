@@ -4,7 +4,6 @@ from random import randrange
 import random
 import os
 
-
 def clic_Aléatoire ():
     ouv_fen(True,0) # aléatoire = true , nombre de lettre sans importance: exemple 15312.
 
