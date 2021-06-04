@@ -166,7 +166,7 @@ for m in range(11): # m est le numéro de la ligne qu'on créé
 
 def decompte(): # timer
     time = int(lbl["text"])
-    if time > 0:
+    if time > 0 :
         lbl["text"]="%03d" %(time-1) # trois chiffres affichés en parmanance, sinon %02 pour 2 chiffres
         fen.after(1000,decompte) # en mili-seconde d'où 1000 ms = 1s
     elif time == 0 :
